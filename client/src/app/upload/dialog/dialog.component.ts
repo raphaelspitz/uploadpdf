@@ -28,6 +28,14 @@ export class DialogComponent implements OnInit {
     const files: { [key: string]: File } = this.file.nativeElement.files;
     for (let key in files) {
       if (!isNaN(parseInt(key))) {
+        console.log(files[key]);
+        var reader = new FileReader();
+        reader.readAsDataURL(files[key]);
+        reader.onload = (event)=>{
+        files[key]["base64"] = reader.result;
+        files[key]["date"] = new Date();
+        console.log(reader.result) // file base64 to shows up
+        }
         this.files.add(files[key]);
       }
     }
